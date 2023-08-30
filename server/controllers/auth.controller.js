@@ -1,9 +1,10 @@
 const {User} = require("../models");
-const {authServices,userServices} = require("../services");
+const {authServices,userServices, tokenServices} = require("../services");
 
 exports.register = async(req, res) => {
     const user = await userServices.createUser(req.body);
-    return res.json({user});
+    const tokens = await tokenServices.generateToken(user);
+    return res.json({user, tokens});
 }
 
 exports.login = async (req,res) => {
