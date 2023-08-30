@@ -7,7 +7,7 @@ const {connect} = require("./database/connect");
 server.use(express.json());
 server.use(express.urlencoded({ extended:true }));
 
-server.use("/api", require("./routers/user.routes"), require("./routers/auth.routes"));
+server.use("/api",require("./routers/auth.routes"), require("./routers/user.routes"));
 
 const connection = async() => {
     
