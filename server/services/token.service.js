@@ -17,7 +17,11 @@ const generateToken = async(user) => {
 
     return accessToken;
 }
-
+const verifyToken = async(token, type) => {
+    const tokenDoc = await jwt.verify(token, keys.secret);
+    console.log(tokenDoc);
+    return tokenDoc;
+}
 module.exports = {
-    generateToken
+    generateToken,verifyToken
 }
