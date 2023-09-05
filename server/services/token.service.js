@@ -2,17 +2,18 @@ const jwt = require("jsonwebtoken");
 const moment = require("moment");
 const {types, keys} = require("../config/")
 
-const createToken = async(userId, time, type) => {
+const createToken = async(userId, expiresIn, type) => {
     const payload = {
         sub:userId,
         iat:moment().unix(),
-        exp:time.unix(),
+        expiresIn,
         type
     };
     return jwt.sign(payload, keys.secret);
 }
 const generateToken = async(user) => {
-    const accessTokenTime = moment().add(10, "minutes");
+    const accessTokenTime = moment().add(10, "minutes").format('YYYY-MM-DD HH:mm:ss');
+    console.log(accessTokenTime);
     const accessToken = createToken(user.id,accessTokenTime, types.ACCESS);
 
     return accessToken;
