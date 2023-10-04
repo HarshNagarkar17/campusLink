@@ -7,7 +7,7 @@ const {User} = require("../models");
  */
 const createUser = async(data) => {
     if(await User.emailTaken(data.email))
-        throw new Error("Email already exist");
+        throw new Error("Email already exist"); 
     return User.create(data);
 }
 

@@ -20,7 +20,6 @@ const generateToken = async(user) => {
 }
 const verifyToken = async(token, type) => {
     const tokenDoc = await jwt.verify(token, keys.secret);
-    console.log(tokenDoc);
     return tokenDoc;
 }
 module.exports = {
