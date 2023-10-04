@@ -11,7 +11,10 @@ const createUser = async(data) => {
     return User.create(data);
 }
 
+const getUserbyId = async(_id) => {
+    return User.findOne({_id});
+}
 const getUserbyEmail = async(email) => {
     return User.findOne({email})
 }
-module.exports = {createUser, getUserbyEmail}
+module.exports = {createUser, getUserbyEmail, getUserbyId}

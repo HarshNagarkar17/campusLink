@@ -1,5 +1,7 @@
 const nodemailer = require("nodemailer");
 const crypto = require("crypto");
+const { User } = require("../models");
+const { userServices } = require(".");
 
 const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
@@ -13,16 +15,25 @@ const transporter = nodemailer.createTransport({
 });
 
 
-const sendMail = async(emailId, otp) => {
+const sendMail = async(userId,emailId) => {
     let info = await transporter.sendMail({
         from: process.env.EMAIL_ID,
         to:emailId,
         subject: `Email Verification from campusLink`,
         html:`<h4>Please click on below link to verify your account at campusLink</h4>
-        <br> <p>http://localhost:5000/account/verify/${emailId}</p>`
+        <br> <p>http://localhost:5000/account/verify/${userId}</p>`
     })
 
     return info;
+}
+
+const userisActive = async(_id) => {
+    const user = await userServices.getUserbyId(_id);
+    if(!user)
+        throw new Error("Invalid user ID");
+    if(user && user.isActive === true)
+        throw new Error("User is already verified");
+    await User.updateOne({_id}, {$set : {isActive:true}});
 }
 const createOTP = (length) => {
     const chars = '0123456789';
@@ -39,4 +50,4 @@ const createOTP = (length) => {
 
 
 
-module.exports = { createOTP, sendMail }
+module.exports = { createOTP, sendMail, userisActive }
