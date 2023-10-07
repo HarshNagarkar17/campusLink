@@ -5,8 +5,8 @@ const wrapper = require("../utils/async");
 exports.register = wrapper(async(req, res) => {
     const user = await userServices.createUser(req.body);
     const tokens = await tokenServices.generateToken(user);
-    const otp = emailServices.createOTP(5);
-    const email = emailServices.sendMail(user.id, req.body.email);
+    // const otp = emailServices.createOTP(5);
+    emailServices.sendMail(user.id, req.body.email);
     return res.json({user, tokens, message: "Email sent!"});
 })
 
@@ -20,7 +20,7 @@ exports.login = wrapper(async (req,res) => {
 
 exports.verifyEmail = wrapper(async (req, res) => {
     const id = req.params.id;
-    await emailServices.userisActive(id);
+    await emailServices.activateUser(id);
     return res.json({message: "user is verified"});
 });
 

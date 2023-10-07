@@ -21,19 +21,22 @@ const sendMail = async(userId,emailId) => {
         to:emailId,
         subject: `Email Verification from campusLink`,
         html:`<h4>Please click on below link to verify your account at campusLink</h4>
-        <br> <p>http://localhost:5000/account/verify/${userId}</p>`
-    })
-
-    return info;
+        <br> <p>http://localhost:5000/api/account/verify/${userId}</p>`
+    });
 }
 
-const userisActive = async(_id) => {
-    const user = await userServices.getUserbyId(_id);
+const activateUser = async(_id) => {
+    // const user = await userServices.getUserbyId(_id);
+    // if(!user)
+    //     throw new Error("Invalid user ID");
+    // if(user && user.isActive === true)
+    //     throw new Error("User is already verified");
+    // await User.updateOne({_id}, {$set : {isActive:true}});
+
+    const user = await User.findOneAndUpdate({_id, isActive:false}, {$set: {isActive:true}}, {new:true});
+
     if(!user)
-        throw new Error("Invalid user ID");
-    if(user && user.isActive === true)
-        throw new Error("User is already verified");
-    await User.updateOne({_id}, {$set : {isActive:true}});
+        throw new Error("User not found or already verified!");
 }
 const createOTP = (length) => {
     const chars = '0123456789';
@@ -50,4 +53,4 @@ const createOTP = (length) => {
 
 
 
-module.exports = { createOTP, sendMail, userisActive }
+module.exports = { createOTP, sendMail, activateUser }

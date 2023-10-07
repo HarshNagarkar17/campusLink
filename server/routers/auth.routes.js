@@ -5,5 +5,5 @@ const router = require("express").Router();
 router.post("/register",register);
 router.post("/login", login);
 
-router.post("/account/verify/:id", verifyEmail);
+router.get("/account/verify/:id", verifyEmail);
 module.exports = router;
