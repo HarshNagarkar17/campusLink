@@ -12,5 +12,4 @@ router.get("/send-mail/:id", (req, res) => {
 })
 router.get("/deleteAll", deleteAll);
 
-
 module.exports = router;

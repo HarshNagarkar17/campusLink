@@ -8,6 +8,7 @@ server.use(express.json());
 server.use(express.urlencoded({ extended:true }));
 
 server.use("/api",require("./routers/auth.routes"), require("./routers/user.routes"));
+server.use("/api/post", require("./routers/post.routes"));
 
 const connection = async() => {
     

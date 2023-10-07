@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Post</title>
+    <style>
+        body {
+            background-color: #333; 
+            color: #fff; 
+            font-family: Arial, sans-serif;
+        }
+
+        form {
+            background-color: #444; 
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); 
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        textarea, select {
+            width: 100%;
+            background-color: #555;
+            color: #fff; 
+            border: none;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* #dark-mode-toggle {
+            background-color: transparent;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+        } */
+    </style>
+</head>
+<body>
+    <form action="/api/post/createPost" method="post">
+        <label for="content">Content:</label>
+        <textarea name="content" id="content" rows="10"></textarea>
+
+        <label for="category">Category:</label>
+        <select name="postedIn" id="category">
+            <option value="1">Events</option>
+            <option value="2">Result</option>
+            <option value="3">Assignments</option>
+            <option value="4">Warning</option>
+        </select>
+
+        <button id="post">Post</button>
+    </form>
+</body>
+</html>
