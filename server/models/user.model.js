@@ -26,7 +26,28 @@ const userSchema = mongoose.Schema({
     isActive:{
         type:Boolean,
         default:false
-    }
+    },
+    isFaculty:{
+        type:Boolean,
+        default:false
+    },
+    isCoordinator:{
+        type:Boolean,
+        default:false  
+    },
+    contact:{
+        type:String,
+        validate(value){
+        if (!value.match(/^\d{10}$/))
+            throw new error('invalid contact number format')
+        }
+    },
+    groupids:{
+        type:String,
+    },
+    profile:{
+        type:String,
+    },
 });
 
 userSchema.pre("save", async function(){
@@ -43,6 +64,15 @@ userSchema.statics.emailTaken = async function(email) {
     return !!user;
 }
 
+/**
+ * checks if contact is already taken
+ * @param {string} contact 
+ * @returns {Promise<Boolean>}
+ */
+userSchema.statics.contactTaken = async function(contact) {
+    const user = await this.findOne({contact});
+    return !!user;
+}
 /**
  * checks if passowrds is matching or not
  * @param {string} password 
