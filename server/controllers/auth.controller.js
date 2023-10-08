@@ -10,11 +10,18 @@ exports.register = wrapper(async(req, res) => {
     return res.json({user, tokens, message: "Email sent!"});
 })
 
+exports.register_faculty = wrapper(async(req, res) => {
+        const user = await userServices.createUser(req.body);
+        const tokens = await tokenServices.generateToken(user);
+        return res.json({user, tokens});       
+})
+
 exports.login = wrapper(async (req,res) => {
     const {email, password, tokens} = req.body;
     const user = await authServices.validateUser(email, password);
     const token = await tokenServices.verifyToken(tokens, "access");
-    return res.json({user, token});
+    const isFaculty = user.isFaculty === true ? true : false;
+    return res.json({user, token, isFaculty});
 });
 
 
