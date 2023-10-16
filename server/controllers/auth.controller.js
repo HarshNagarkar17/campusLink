@@ -7,7 +7,7 @@ exports.register = wrapper(async(req, res) => {
     const tokens = await tokenServices.generateToken(user);
     // const otp = emailServices.createOTP(5);
     emailServices.sendMail(user.id, req.body.email);
-    return res.json({user, tokens, message: "Email sent!"});
+    return res.json({user, tokens, status:"success"});
 })
 
 exports.register_faculty = wrapper(async(req, res) => {
@@ -28,6 +28,7 @@ exports.login = wrapper(async (req,res) => {
 exports.verifyEmail = wrapper(async (req, res) => {
     const id = req.params.id;
     await emailServices.activateUser(id);
-    return res.json({message: "user is verified"});
+    return res.redirect("/home");
+    // return res.json({message: "user is verified"});
 });
 

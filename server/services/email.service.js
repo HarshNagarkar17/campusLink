@@ -26,18 +26,18 @@ const sendMail = async(userId,emailId) => {
 }
 
 const activateUser = async(_id) => {
-    // const user = await userServices.getUserbyId(_id);
-    // if(!user)
-    //     throw new Error("Invalid user ID");
-    // if(user && user.isActive === true)
-    //     throw new Error("User is already verified");
-    // await User.updateOne({_id}, {$set : {isActive:true}});
 
-    const user = await User.findOneAndUpdate({_id, isActive:false}, {$set: {isActive:true}}, {new:true});
+    // const user = await User.findOneAndUpdate({_id, isActive:false}, {$set: {isActive:true}}, {new:true});
+    const user = await User.findOne({_id});
 
     if(!user)
         throw new Error("User not found or already verified!");
-}
+
+    if(user.isActive)
+        throw new Error("User is already verified");
+    user.isActive = true;
+    await user.save();
+    }
 const createOTP = (length) => {
     const chars = '0123456789';
     const randomBytes = crypto.randomBytes(length);
