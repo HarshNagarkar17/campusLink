@@ -39,19 +39,19 @@ const userSchema = mongoose.Schema({
         type:String,
         validate(value){
         if (!value.match(/^\d{10}$/))
-            throw new error('invalid contact number format')
+            throw new Error('invalid contact number format')
         }
     },
     groupids:{
         type:String,
     },
-    profile:{
+    profilePicture:{
         type:String,
     },
 });
 
 userSchema.pre("save", async function(){
-    this.password = await bcrypt.hash(this.password, 8);
+    this.password = bcrypt.hash(this.password, 8);
 })
 
 /**

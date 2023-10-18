@@ -1,4 +1,5 @@
 const {User, Group} = require("../models");
+const { CustomError } = require("../utils/customError");
 
 /**
  * creates user with email and password
@@ -6,10 +7,12 @@ const {User, Group} = require("../models");
  * @returns {Promise<Object>}
  */
 const createUser = async(data) => {
+    if(data.fullname && typeof data.fulname === 'number')
+        throw new CustomError("Name should not be a number", 401);
     if(await User.emailTaken(data.email))
-        throw new Error("Email already exist"); 
+        throw new CustomError("Email already exist", 512); 
     if(data.contact && (await User.contactTaken(data.contact)))
-        throw new Error("Contact already exist");
+        throw new CustomError("Contact already exist", 512);
     return User.create(data);
 }
 
@@ -21,7 +24,7 @@ const createUser = async(data) => {
 const createGroup=async(data)=>{
     console.log(data)
     if(await Group.nameTaken(data.groupName))
-        throw new Error("Group already created");
+        throw new CustomError("Group already created", 512);
     return Group.create(data);
 }
 
@@ -33,7 +36,7 @@ const createGroup=async(data)=>{
 const deleteGroup = async(groupName) => {
     if((await Group.nameTaken(groupName)))
         return Group.deleteOne({groupName});
-    throw new Error("No group exist with this name");
+    throw new CustomError("No group exist with this name", 512);
 }
 const getUserbyId = async(_id) => {
     return User.findOne({_id});

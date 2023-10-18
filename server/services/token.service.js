@@ -13,13 +13,12 @@ const createToken = async(userId, expiresIn, type) => {
 }
 const generateToken = async(user) => {
     const accessTokenTime = moment().add(10, "minutes").format('YYYY-MM-DD HH:mm:ss');
-    console.log(accessTokenTime);
     const accessToken = createToken(user.id,accessTokenTime, types.ACCESS);
 
     return accessToken;
 }
 const verifyToken = async(token, type) => {
-    const tokenDoc = await jwt.verify(token, keys.secret);
+    const tokenDoc = jwt.verify(token, keys.secret);
     return tokenDoc;
 }
 module.exports = {

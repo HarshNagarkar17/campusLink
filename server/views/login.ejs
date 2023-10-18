@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="Circlehub">
+    <meta name="description" content="Circlehub HTML5 Template">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Circlehub - HTML Templates</title>
+
+    <link rel="shortcut icon" href="/public/images/fav.png" type="image/x-icon">
+    <link rel="stylesheet" href="/public/css/style.css">
+    <style>
+       /* Apply the light theme */
+body {
+  background-color: var(--body-color);
+  color: var(--para-1st-color);
+  display: flex;
+  justify-content: center; /* Center content horizontally */
+  align-items: center; /* Center content vertically */
+  height: 100vh; /* Ensure the page takes the full viewport height */
+  margin: 0;
+}
+
+/* Make the container wider */
+.single-box {
+  max-width: 600px; 
+  width: 100%;
+  background-color: var(--box-1st-color);
+  border-radius: 10px;
+  box-shadow: var(--box-shadow);
+  padding: 20px;
+}
+
+/* ... (other styles remain the same) */
+
+
+/* Add this CSS to center the form elements within .single-box */
+.form-action {
+    text-align: center;
+}
+h6{
+    text-align: center;
+    font-size: larger;
+}
+/* Optionally, you can style the button */
+.cmn-btn {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.warning{
+    text-align: left;
+}
+.warning-text{
+    font-weight: 300;
+    font-size: medium;
+}
+.cmn-btn:hover {
+    background-color: #0056b3;
+}
+#dont_have_account{
+    font-size: 15px;
+    color: #ffffff71;
+    
+}
+#dont_have_account a{
+    font-size: 15px;
+    padding: 5px;
+}
+
+    </style>
+</head>
+<body>
+    
+    <div class="single-box text-start p-sm-5 p-3" id="Main_login">
+        <div class="head-area mb-6">
+            <h6>Login page</h6>
+        </div>
+        <form action="#" class="text-center d-grid gap-4" id="loginForm">
+            <div class="row">
+                <div class="col-sm-10">
+                    <div class="single-input text-start">
+                        <label for="name">Email</label>
+                        <div class="input-area second">
+                            <input type="text" placeholder="Enter Email" autocomplete="off">
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <div class="col-sm-10">
+                    <div class="single-input text-start">
+                        <label for="Email">Password</label>
+                        <div class="input-area second">
+                            <input type="password"  placeholder="Enter Password" autocomplete="off" width="100%">
+                        </div>
+                    </div>
+                </div>
+                <div class="warning">
+                    <a href="forgot_password.html" class="warning-text">Forgot password?</a>
+                </div>
+                <div class="col-sm-12 mt-4">
+                    <div class="btn-area text-end">
+                        <button class="cmn-btn" id="loginBtn">Login</button>
+                    </div>
+                </div>
+                <p id="dont_have_account">Don't have a account?<a href="registration_form.html">Click Here</a></p>
+            </div>
+        </form>
+    </div>
+    <script src="/public/js/handler.js"></script>
+    <script src="/public/js/plugins/jquery.min.js"></script>
+    <script src="/public/js/bootstrap.bundle.min.js"></script>
+    <script src="/public/js/plugins/slick.js"></script>
+    <script src="/public/js/plugins/jquery.nice-select.min.js"></script>
+    <script src="/public/js/plugins/plyr.js"></script>
+    <script src="/public/js/plugins/apexcharts.js"></script>
+    <script src="/public/js/plugins/wow.min.js"></script>
+    <script src="/public/js/plugins/plugin.js"></script>
+    <script src="/public/js/main.js"></script>
+</body>
+</html>

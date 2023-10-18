@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="Circlehub">
+    <meta name="description" content="Circlehub HTML5 Template">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Registration Form</title>
+
+    <link rel="shortcut icon" href="/public/images/fav.png" type="image/x-icon">
+    <link rel="stylesheet" href="/public/css/style.css">
+    <style>
+        /* Apply the light theme */
+        body {
+            background-color: var(--body-color);
+            color: var(--para-1st-color);
+            display: flex;
+            justify-content: center;
+            /* Center content horizontally */
+            align-items: center;
+            /* Center content vertically */
+            height: 100vh;
+            /* Ensure the page takes the full viewport height */
+            margin: 0;
+        }
+
+        /* Make the container wider */
+        .single-box {
+            max-width: 600px;
+            width: 100%;
+            background-color: var(--box-1st-color);
+            border-radius: 10px;
+            box-shadow: var(--box-shadow);
+            padding: 20px;
+            margin: 0;
+        }
+
+        /* ... (other styles remain the same) */
+
+
+        /* Add this CSS to center the form elements within .single-box */
+        .form-action {
+            text-align: center;
+        }
+
+        h6 {
+            text-align: center;
+            font-size: larger;
+        }
+
+        /* Optionally, you can style the button */
+        .cmn-btn {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3
+        }
+
+        .warning {
+            text-align: left;
+        }
+
+        .warning-text {
+            font-weight: 300;
+            font-size: medium;
+        }
+
+        .cmn-btn:hover {
+            background-color: #0056b3;
+        }
+
+        #rstfm_done {
+            font-size: large;
+            font-weight: 500;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="single-box text-start p-sm-5 p-3" id="main_id">
+        <div class="head-area mb-6">
+            <h6>Registration Form</h6>
+        </div>
+        <p id="show-warning"></p>
+        <form action="#" class="text-center d-grid gap-4" id="registerForm">
+            <div class="row">
+                <div class="col-sm-10">
+                    <div class="single-input text-start">
+                        <label for="name">Full Name</label>
+                        <div class="input-area second">
+                            <input type="text" id="name" placeholder="Enter Name" autocomplete="off">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-10">
+                    <div class="single-input text-start">
+                        <label for="name">Enrollment</label>
+                        <div class="input-area second">
+                            <input type="text" id="en" pattern="\d*" placeholder="Enter Enrollment" autocomplete="off"
+                                maxlength="12">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-10">
+                    <div class="single-input text-start">
+                        <label for="name">Semester</label>
+                        <div class="input-area second">
+                            <select name="semster" id="sem">
+                                <option value="None">Choose Semester</option>
+                                <option value="6">6</option>
+                                <option value="5">5</option>
+                                <option value="4">4</option>
+                                <option value="3">3</option>
+                                <option value="2">2</option>
+                                <option value="1">1</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-10">
+                    <div class="single-input text-start">
+                        <label for="name">Department</label>
+                        <div class="input-area second">
+                            <select name="department" id="dp">
+                                <option value="None" selected>Choose Department</option>
+                                <option value="AZ">Regular Student</option>
+                                <option value="MZ">Anyone</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-10">
+                    <div class="single-input text-start">
+                        <label for="name">Email</label>
+                        <div class="input-area second">
+                            <input type="text" id="em" placeholder="Enter Email" autocomplete="on">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-10">
+                    <div class="single-input text-start">
+                        <label for="Email">Password</label>
+                        <div class="input-area second">
+                            <input type="password" id="ps" placeholder="Enter Password" autocomplete="off" width="100%">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 mt-4">
+                    <div class="btn-area text-end">
+                        <button class="cmn-btn"><a href="login.html">Back to Login</a></button>
+                        <button class="cmn-btn" id="rstfm_done" type="submit">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById("registerForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const email = document.getElementById("em").value;
+            const password = document.getElementById("ps").value;
+            const enrollment = document.getElementById("en").value;
+            const fullname = document.getElementById("name").value;
+            const formData = { email, password,enrollment, fullname  };
+
+            if(!email || !password || !enrollment || !fullname) {
+                alert("Enter valid data!")
+            }else{
+            try {
+                const response = await fetch("http://localhost:5000/api/register", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(formData)
+                })
+                const data = await response.json();
+                if (data.status === "failed"){
+                    const warning = document.getElementById("show-warning");
+                    warning.innerHTML = data.error;
+                    setTimeout(() => {
+                        warning.innerHTML = "";
+                    }, 2000);
+                }
+                else
+                    console.log(data)
+
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+        })
+    </script>
+    <script src="/public/js/plugins/jquery.min.js"></script>
+    <script src="/public/js/bootstrap.bundle.min.js"></script>
+    <script src="/public/js/plugins/slick.js"></script>
+    <script src="/public/js/plugins/jquery.nice-select.min.js"></script>
+    <script src="/public/js/plugins/plyr.js"></script>
+    <script src="/public/js/plugins/apexcharts.js"></script>
+    <script src="/public/js/plugins/wow.min.js"></script>
+    <script src="/public/js/plugins/plugin.js"></script>
+    <script src="/public/js/main.js"></script>
+</body>
+
+</html>

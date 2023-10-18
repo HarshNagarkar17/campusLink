@@ -10,7 +10,7 @@ exports.all = async(req, res) => {
 exports.deleteAll = async(req, res) => {
     await User.deleteMany({});
     return res.send("users deleted");
-}
+}   
 
 exports.createNewGroup = wrapper(async(req,res)=>{
     const name = await userServices.createGroup(req.body);

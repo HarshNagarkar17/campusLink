@@ -2,6 +2,7 @@ const nodemailer = require("nodemailer");
 const crypto = require("crypto");
 const { User } = require("../models");
 const { userServices } = require(".");
+const { CustomError } = require("../utils/customError");
 
 const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
@@ -26,17 +27,17 @@ const sendMail = async(userId,emailId) => {
 }
 
 const activateUser = async(_id) => {
-
     // const user = await User.findOneAndUpdate({_id, isActive:false}, {$set: {isActive:true}}, {new:true});
     const user = await User.findOne({_id});
 
     if(!user)
-        throw new Error("User not found or already verified!");
+        throw new CustomError("User not found or already verified!");
 
     if(user.isActive)
-        throw new Error("User is already verified");
+        throw new CustomError("User is already verified");
     user.isActive = true;
     await user.save();
+    return user;
     }
 const createOTP = (length) => {
     const chars = '0123456789';
